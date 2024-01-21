@@ -13,12 +13,7 @@ namespace Calculator
             while (true)
             {
                 Console.Clear();
-
-                Console.WriteLine("------------------------------------------КАЛЬКУЛЯТОР--------------------------------------");
-                Console.WriteLine();
-                Console.WriteLine("Доступны операции сложения (+), вычитания (-), умножения (*) и деления (/) c двумя числами.");
-                Console.WriteLine("Для отделения дробной части используйте запятую.");
-                Console.WriteLine();
+                PrintHeader();
 
                 double firstNum, secondNum, result;
                 string oper;
@@ -82,6 +77,14 @@ namespace Calculator
                 }
                 Console.ReadLine();
             }
+        }
+        static void PrintHeader()
+        {
+            Console.WriteLine("------------------------------------------КАЛЬКУЛЯТОР--------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("Доступны операции сложения (+), вычитания (-), умножения (*) и деления (/) c двумя числами.");
+            Console.WriteLine("Для отделения дробной части используйте запятую.");
+            Console.WriteLine();
         }
     }
 }
