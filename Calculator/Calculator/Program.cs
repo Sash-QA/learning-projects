@@ -52,14 +52,20 @@ namespace Calculator
 
                     Console.WriteLine("Введите оператор и нажмите Enter:");
                     oper = Console.ReadLine();
-
-                    if (string.IsNullOrWhiteSpace(oper) || !IsOperatorValid(oper))
-                    {
-                        Console.WriteLine("Введен некорректный оператор. Доступные операторы: '+', '-', '*' и '/'. Нажмите Enter и попробуйте снова.");
-                        Console.ReadLine();
-                        continue;
-                    }
                     Console.WriteLine();
+
+                    switch (oper)
+                    {
+                        case "+":
+                        case "-":
+                        case "*":
+                        case "/":
+                            break;
+                        default:
+                            Console.WriteLine("Введен некорректный оператор. Доступные операторы: '+', '-', '*' и '/'. Нажмите Enter и попробуйте снова.");
+                            Console.ReadLine();
+                            continue;
+                    }
 
                     Console.WriteLine("Введите второе число и нажмите Enter:");
                     secondNum = double.Parse(Console.ReadLine());
@@ -110,12 +116,7 @@ namespace Calculator
             }
         }
 
-        private static bool IsOperatorValid(string oper)
-        {
-            return oper == "+" || oper == "-" || oper == "*" || oper == "/";
-        }
-
-        static void PrintResult(double result)
+         static void PrintResult(double result)
         {
             Console.WriteLine($"Результат: {result}. Для продолжения работы с калькулятором нажмите Enter.");
             Console.WriteLine();
