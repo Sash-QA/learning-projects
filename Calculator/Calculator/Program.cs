@@ -6,6 +6,32 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
+    public class Calculator
+    {
+        public static double Add(double firstNum, double secondNum)
+        {
+            return firstNum + secondNum;
+        }
+
+        public static double Subtract(double firstNum, double secondNum)
+        {
+            return firstNum - secondNum;
+        }
+
+        public static double Multiply(double firstNum, double secondNum)
+        {
+            return firstNum * secondNum;
+        }
+
+        public static double Divide(double firstNum, double secondNum)
+        {
+            if (secondNum == 0)
+                
+                throw new ArgumentException("Невозможно разделить на ноль. Для продолжения работы с калькулятором нажмите Enter.");
+
+            return firstNum / secondNum;
+        }
+    }
     internal class Program
     {
         static void Main(string[] args)
@@ -26,6 +52,13 @@ namespace Calculator
 
                     Console.WriteLine("Введите оператор и нажмите Enter:");
                     oper = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(oper) || !IsOperatorValid(oper))
+                    {
+                        Console.WriteLine("Введен некорректный оператор. Доступные операторы: '+', '-', '*' и '/'. Нажмите Enter и попробуйте снова.");
+                        Console.ReadLine();
+                        continue;
+                    }
                     Console.WriteLine();
 
                     Console.WriteLine("Введите второе число и нажмите Enter:");
@@ -41,43 +74,53 @@ namespace Calculator
                 switch (oper)
                 {
                     case "+":
-                        Console.WriteLine("Результат: " + (result = firstNum + secondNum) + ". Для продолжения работы с калькулятором нажмите Enter.");
-                        Console.WriteLine();
+                        result = Calculator.Add(firstNum, secondNum);
+                        PrintResult(result);
                         break;
 
                     case "-":
-                        Console.WriteLine("Результат: " + (result = firstNum - secondNum) + ". Для продолжения работы с калькулятором нажмите Enter.");
-                        Console.WriteLine();
+                        result = Calculator.Subtract(firstNum, secondNum);
+                        PrintResult(result);
                         break;
 
                     case "*":
-                        Console.WriteLine("Результат: " + (result = firstNum * secondNum) + ". Для продолжения работы с калькулятором нажмите Enter.");
-                        Console.WriteLine();
+                        result = Calculator.Multiply(firstNum, secondNum);
+                        PrintResult(result);
                         break;
 
                     case "/":
+                        try
                         {
-                            if (secondNum == 0)
-                            {
-                                Console.WriteLine("Невозможно разделить на ноль. Для продолжения работы с калькулятором нажмите Enter.");
-                                Console.WriteLine();
-                            }
-                            else
-                            {
-                                Console.WriteLine("Результат: " + (result = firstNum / secondNum) + ". Для продолжения работы с калькулятором нажмите Enter.");
-                                Console.WriteLine();
-                            }
+                            result = Calculator.Divide(firstNum, secondNum);
+                            PrintResult(result);
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            Console.WriteLine();
                         }
                         break;
 
                     default:
-                        Console.WriteLine("Введен некорректный оператор. Доступные операторы: '+', '-', '*' и '/'. Нажмите Enter и попробуйте снова.");
+                        Console.WriteLine("В ходе выполнения программы произошла ошибка. Нажмите Enter и попробуйте снова.");
                         Console.WriteLine();
                         break;
                 }
                 Console.ReadLine();
             }
         }
+
+        private static bool IsOperatorValid(string oper)
+        {
+            return oper == "+" || oper == "-" || oper == "*" || oper == "/";
+        }
+
+        static void PrintResult(double result)
+        {
+            Console.WriteLine($"Результат: {result}. Для продолжения работы с калькулятором нажмите Enter.");
+            Console.WriteLine();
+        }
+
         static void PrintHeader()
         {
             Console.WriteLine("------------------------------------------КАЛЬКУЛЯТОР--------------------------------------");
