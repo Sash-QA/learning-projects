@@ -1,0 +1,21 @@
+<!DOCTYPE html>                                                           <!-- Объявление формата документа -->
+<html lang="ru">                                                          <!-- Определение языка документа как русский -->
+<head>
+  <meta charset="UTF-8">                                                  <!-- Установка кодировки символов документа на UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Установка масштабирования для мобильных устройств -->
+  <title>Таймер</title>                                                   <!-- Установка заголовка страницы -->
+</head>
+<body>                                                                    <!-- Создание тела с изображением таймера -->
+  <div>
+    <img src="timer_icon.png" />                                          <!-- Добавление иконки -->
+  </div>
+  <label for="minutes-input">Минуты:</label>                              <!-- Надпись "Минуты" -->
+  <input type="number" id="minutes-input" min="0" value="0">              <!-- Поле ввода для минут -->
+  <label for="seconds-input">Секунды:</label>                             <!-- Надпись "Секунды" -->
+  <input type="number" id="seconds-input" min="0" value="0">              <!-- Поле ввода для секунд -->
+  <h1>00:00</h1>                                                          <!-- Отображение текущего времени, которое меняется динамически -->
+  <button id="start-btn">Старт</button>                                   <!-- Кнопка запуска таймера -->
+  <button id="stop-btn">Стоп</button>                                     <!-- Кнопка остановки таймера -->
+  <script src="timer.js"></script>                                        <!-- Подключение файла с JavaScript-кодом -->
+</body>
+</html>
