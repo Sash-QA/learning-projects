@@ -9,4 +9,4 @@
 Добавить возможность вводить свой текст, который отобразится в уведомлении
 Улучшить внешний вид расширения
 
-За иконку для приложения спасибо <a href="https://www.flaticon.com/free-icons/timer" title="timer icons">Timer icons created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/timer" title="timer icons">Timer icons created by Freepik - Flaticon</a>
