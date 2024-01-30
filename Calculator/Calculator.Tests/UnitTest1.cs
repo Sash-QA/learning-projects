@@ -1,26 +1,24 @@
-using NUnit.Framework;
-
 namespace Calculator.Tests
 {
-    [TestFixture]
+    [TestFixture]                                   // Указывает на то, что класс содержит тесты
     public class CalculatorTests
     {
-        [Test]
-        public void Sum5and3_8expected()
+        [Test]                                                  
+        public void Sum5and3_8expected()            // Тест на сложение
         {
-            // Arrange
+            // Arrange (создание переменных)
             double firstNum = 5;
             double secondNum = 3;
 
-            // Act
+            // Act (вызов метода из тестируемого кода)
             double result = Calculator.Add(firstNum, secondNum);
 
-            // Assert
+            // Assert (проверка, что результат соответствует указанному)
             Assert.That(result, Is.EqualTo(8));
         }
 
         [Test]
-        public void Sub5and3_2expected()
+        public void Sub5and3_2expected()            // Тест на вычитание
         {
             // Arrange
             double firstNum = 5;
@@ -34,7 +32,7 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void Mult5and3_15expected()
+        public void Mult5and3_15expected()          // Тест на умножение
         {
             // Arrange
             double firstNum = 5;
@@ -48,7 +46,7 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void Div6and3_2expected()
+        public void Div6and3_2expected()            // Тест на деление
         {
             // Arrange
             double firstNum = 6;
@@ -62,13 +60,13 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void DivBy0_ExpectedException()
+        public void DivBy0_ExpectedException()      // Тест на деление на ноль
         {
             // Arrange
             double firstNum = 6;
             double secondNum = 0;
 
-            // Act & Assert
+            // Act & Assert (объединены, так как 'Assert.Throws' имеет особенности выполнения проверки)
             Assert.Throws<ArgumentException>(() => Calculator.Divide(firstNum, secondNum));
         }
     }

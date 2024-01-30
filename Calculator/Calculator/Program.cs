@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
     public class Calculator
     {
-        public static double Add(double firstNum, double secondNum)
+        public static double Add(double firstNum, double secondNum)         // Определение статических методов для арифметических операций
         {
             return firstNum + secondNum;
         }
@@ -25,7 +21,7 @@ namespace Calculator
 
         public static double Divide(double firstNum, double secondNum)
         {
-            if (secondNum == 0)
+            if (secondNum == 0)                                             // Отображение ошибки при попытке деления на ноль
                 
                 throw new ArgumentException("Невозможно разделить на ноль. Для продолжения работы с калькулятором нажмите Enter.");
 
@@ -34,15 +30,15 @@ namespace Calculator
     }
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args)                                     // Точка входа в программу
         {
             while (true)
             {
-                Console.Clear();
-                PrintHeader();
+                Console.Clear();                                            // Очистка консоли перед новым циклом
+                PrintHeader();                                              // Вывод заголовка
 
-                double firstNum, secondNum, result;
-                string oper;
+                double firstNum, secondNum, result;                         // Объявление переменных для чисел
+                string oper;                                                // Объявление переменной для оператора
 
                 try
                 {
@@ -54,7 +50,7 @@ namespace Calculator
                     oper = Console.ReadLine();
                     Console.WriteLine();
 
-                    switch (oper)
+                    switch (oper)                                           // Проверка корректности оператора
                     {
                         case "+":
                         case "-":
@@ -71,13 +67,14 @@ namespace Calculator
                     secondNum = double.Parse(Console.ReadLine());
                     Console.WriteLine();
                 }
-                catch (Exception)
+                catch (Exception)                                           // Отображение ошибки при некорректном вводе чисел
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Введено некорректное число. Нажмите Enter и попробуйте снова.");
                     Console.ReadLine();
                     continue;
                 }
-                switch (oper)
+                switch (oper)                                               // Выбор операции в зависимости от введенного оператора
                 {
                     case "+":
                         result = Calculator.Add(firstNum, secondNum);
@@ -107,22 +104,22 @@ namespace Calculator
                         }
                         break;
 
-                    default:
+                    default:                                                // Сообщение при непредвиденных ошибках
                         Console.WriteLine("В ходе выполнения программы произошла ошибка. Нажмите Enter и попробуйте снова.");
                         Console.WriteLine();
                         break;
                 }
-                Console.ReadLine();
+                Console.ReadLine();                                         // Позволяет избежать завершения цикла, чтобы успеть увидеть результат операции
             }
         }
 
-         static void PrintResult(double result)
+        static void PrintResult(double result)                              // Вывод результата
         {
             Console.WriteLine($"Результат: {result}. Для продолжения работы с калькулятором нажмите Enter.");
             Console.WriteLine();
         }
 
-        static void PrintHeader()
+        static void PrintHeader()                                           // Вывод заголовка
         {
             Console.WriteLine("------------------------------------------КАЛЬКУЛЯТОР--------------------------------------");
             Console.WriteLine();
