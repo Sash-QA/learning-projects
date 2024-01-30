@@ -1,5 +1,5 @@
 namespace Calculator.Tests
-{
+{                                                   // Encoding: UTF-8
     [TestFixture]                                   // ”казывает на то, что класс содержит тесты
     public class CalculatorTests
     {
