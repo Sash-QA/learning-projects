@@ -1,24 +1,24 @@
-namespace Calculator.Tests
+п»їnamespace Calculator.Tests
 {                                                   
-    [TestFixture]                                   // Указывает на то, что класс содержит тесты
+    [TestFixture]                                   // РЈРєР°Р·С‹РІР°РµС‚ РЅР° С‚Рѕ, С‡С‚Рѕ РєР»Р°СЃСЃ СЃРѕРґРµСЂР¶РёС‚ С‚РµСЃС‚С‹
     public class CalculatorTests
     {
         [Test]                                                  
-        public void Sum5and3_8expected()            // Тест на сложение
+        public void Sum5and3_8expected()            // РўРµСЃС‚ РЅР° СЃР»РѕР¶РµРЅРёРµ
         {
-            // Arrange (создание переменных)
+            // Arrange (СЃРѕР·РґР°РЅРёРµ РїРµСЂРµРјРµРЅРЅС‹С…)
             double firstNum = 5;
             double secondNum = 3;
 
-            // Act (вызов метода из тестируемого кода)
+            // Act (РІС‹Р·РѕРІ РјРµС‚РѕРґР° РёР· С‚РµСЃС‚РёСЂСѓРµРјРѕРіРѕ РєРѕРґР°)
             double result = Calculator.Add(firstNum, secondNum);
 
-            // Assert (проверка, что результат соответствует указанному)
+            // Assert (РїСЂРѕРІРµСЂРєР°, С‡С‚Рѕ СЂРµР·СѓР»СЊС‚Р°С‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СѓРєР°Р·Р°РЅРЅРѕРјСѓ)
             Assert.That(result, Is.EqualTo(8));
         }
 
         [Test]
-        public void Sub5and3_2expected()            // Тест на вычитание
+        public void Sub5and3_2expected()            // РўРµСЃС‚ РЅР° РІС‹С‡РёС‚Р°РЅРёРµ
         {
             // Arrange
             double firstNum = 5;
@@ -32,7 +32,7 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void Mult5and3_15expected()          // Тест на умножение
+        public void Mult5and3_15expected()          // РўРµСЃС‚ РЅР° СѓРјРЅРѕР¶РµРЅРёРµ
         {
             // Arrange
             double firstNum = 5;
@@ -46,7 +46,7 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void Div6and3_2expected()            // Тест на деление
+        public void Div6and3_2expected()            // РўРµСЃС‚ РЅР° РґРµР»РµРЅРёРµ
         {
             // Arrange
             double firstNum = 6;
@@ -60,13 +60,13 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void DivBy0_ExpectedException()      // Тест на деление на ноль
+        public void DivBy0_ExpectedException()      // РўРµСЃС‚ РЅР° РґРµР»РµРЅРёРµ РЅР° РЅРѕР»СЊ
         {
             // Arrange
             double firstNum = 6;
             double secondNum = 0;
 
-            // Act & Assert (объединены, так как 'Assert.Throws' имеет особенности выполнения проверки)
+            // Act & Assert (РѕР±СЉРµРґРёРЅРµРЅС‹, С‚Р°Рє РєР°Рє 'Assert.Throws' РёРјРµРµС‚ РѕСЃРѕР±РµРЅРЅРѕСЃС‚Рё РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРІРµСЂРєРё)
             Assert.Throws<ArgumentException>(() => Calculator.Divide(firstNum, secondNum));
         }
     }
