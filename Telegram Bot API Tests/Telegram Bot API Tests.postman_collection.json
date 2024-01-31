@@ -140,7 +140,7 @@
 									"\r",
 									"var expectedWebhookUrl = pm.collectionVariables.get(\"webhookUrl\");  // Получение значения из переменной {{webhookUrl}}\r",
 									"\r",
-									"pm.test(\"Проверка URL в теле ответа\", function () {                 // Проверка, что URL в теле ответа равен URL в переменной\r",
+									"pm.test(\"URL в теле ответа равен URL в переменной\", function () {                 // Проверка, что URL в теле ответа равен URL в переменной\r",
 									"    pm.expect(responseBody.result.url).to.eql(expectedWebhookUrl);\r",
 									"});\r",
 									""
