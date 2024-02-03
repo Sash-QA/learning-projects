@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "446c8708-e8db-4a96-b02d-840b602a219b",
 		"name": "Telegram Bot API Tests",
-		"description": "Эта коллекция является моим учебным проектом, демонстрирующим мои навыки работы с Postman. В ней используются некоторые методы из [Telegram Bot API](https://core.telegram.org/bots/api).\n\n### Перед началом тестирования необходимо:\n\n1. Создать бота в [BotFather](https://t.me/BotFather) с помощью команды /newbot\n2. Скопировать полученный токен бота в переменную TOKEN во вкладке Variables\n3. Запустить бота, отправив ему команду /start\n    \n\n### Ключевые моменты:\n\n- Метод getUpdates является связующим звеном, поскольку из значений в теле ответа формируются переменные, необходимые для дальнейших тестов.\n- Если тесты ломаются на методе getUpdates, то решением проблемы может стать отправка боту любого сообщения. Это происходит по причине того, что вебхук очищает объекты из тела ответа метода getUpdates.\n- Для всех валидных запросов обязательно наличие в теле ответа ключа \"ok\" со значением \"true\" и ключа \"result\", поэтому эти тесты находятся на уровне папки Positive Tests и являются общими для всех вложенных запросов.\n- У невалидных запросов с методами GET и POST обязательно наличие в теле ответа ключа \"ok\" со значением \"false\" и ключа \"description\". Эти тесты также находятся на уровне некоторых папок.\n- Также проверяется успешность отправки информации, как в параметрах запроса, так и в теле запроса.\n- Для генерации случайных изображений используется сервис [<b>Lorem Picsum</b>](https://picsum.photos/).",
+		"description": "Эта коллекция является моим учебным проектом, демонстрирующим мои навыки работы с Postman. В ней используются некоторые методы из [Telegram Bot API](https://core.telegram.org/bots/api).\n\n### Перед началом тестирования необходимо:\n\n1. Создать бота в [BotFather](https://t.me/BotFather) с помощью команды /newbot\n2. Скопировать полученный токен бота в переменную коллекции TOKEN\n3. В переменной webhookUrl указать URL вебхука или заглушку [example.com](https://example.com)\n4. Запустить бота, отправив ему команду /start\n    \n\n### Описание:\n\n- Метод getUpdates является связующим звеном, поскольку из значений в теле ответа формируются переменные, необходимые для дальнейших тестов\n- Если тесты ломаются на методе getUpdates, то решением проблемы может стать отправка боту любого сообщения. Это происходит по причине того, что методы вебхука очищают объекты из тела ответа метода getUpdates\n- Для всех валидных запросов обязательно наличие в теле ответа ключа \"ok\" со значением \"true\" и ключа \"result\", поэтому эти тесты находятся на уровне папки Positive Tests и являются общими для всех вложенных запросов\n- Для невалидных запросов с методами GET и POST обязательно наличие в теле ответа ключа \"ok\" со значением \"false\" и ключа \"description\". Эти тесты также находятся на уровне некоторых папок\n- Для генерации случайных изображений используется сервис [<b>Lorem Picsum</b>](https://picsum.photos/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20975438"
 	},
@@ -14,314 +14,616 @@
 					"name": "Positive Tests",
 					"item": [
 						{
-							"name": "Получение  обновлений чата (getUpdates)",
-							"event": [
+							"name": "GET",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = pm.response.json();          // Извлечение данных из JSON-ответа\r",
-											"\r",
-											"pm.test(\"Ключ 'result' является массивом\", function() {   // Проверяем, что 'result' является массивом\r",
-											"    pm.expect(jsonData.result).to.be.an('array');\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Ключ 'update_id' является целым числом\", function() {          // Проверяем, что 'update_id' это целое число\r",
-											"    pm.expect(Number.isInteger(jsonData.result[0].update_id)).to.be.true;\r",
-											"});\r",
-											"\r",
-											"pm.collectionVariables.set(\"chatId\", jsonData.result[0].message.chat.id);   // Сохраняем значение chat id в переменную коллекции\r",
-											"\r",
-											"var randomIndex = Math.floor(Math.random() * jsonData.result.length);   // Выбираем случайный объект из массива\r",
-											"var randomMessageId = jsonData.result[randomIndex].message.message_id;  // Получаем message_id из выбранного объекта\r",
-											"pm.collectionVariables.set(\"randomMessageId\", randomMessageId);         // Сохраняем значение в переменную коллекции"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/getUpdates",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
+									"name": "Получение  обновлений чата (getUpdates)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();          // Извлечение данных из JSON-ответа\r",
+													"\r",
+													"pm.test(\"Ключ 'result' является массивом\", function() {   // Проверяем, что 'result' является массивом\r",
+													"    pm.expect(jsonData.result).to.be.an('array');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Ключ 'update_id' является целым числом\", function() {          // Проверяем, что 'update_id' это целое число\r",
+													"    pm.expect(Number.isInteger(jsonData.result[0].update_id)).to.be.true;\r",
+													"});\r",
+													"\r",
+													"pm.collectionVariables.set(\"chatId\", jsonData.result[0].message.chat.id);   // Сохраняем значение chat id в переменную коллекции\r",
+													"\r",
+													"var randomIndex = Math.floor(Math.random() * jsonData.result.length);   // Выбираем случайный объект из массива\r",
+													"var randomMessageId = jsonData.result[randomIndex].message.message_id;  // Получаем message_id из выбранного объекта\r",
+													"var randomText = jsonData.result[randomIndex].message.text;\r",
+													"pm.collectionVariables.set(\"randomMessageId\", randomMessageId);         // Сохраняем значение в переменную коллекции\r",
+													"pm.collectionVariables.set(\"randomText\", randomText);"
+												],
+												"type": "text/javascript"
+											}
+										}
 									],
-									"path": [
-										"bot{{TOKEN}}",
-										"getUpdates"
-									]
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://api.telegram.org/bot{{TOKEN}}/getUpdates",
+											"protocol": "https",
+											"host": [
+												"api",
+												"telegram",
+												"org"
+											],
+											"path": [
+												"bot{{TOKEN}}",
+												"getUpdates"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Запрос информации о боте (getMe)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Ключ 'id' является целым числом\", function() {          // Проверяем, что 'id' это целое число\r",
+													"    pm.expect(Number.isInteger(jsonData.result.id)).to.be.true;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Ключ 'is_bot' имеет значение true\", function() {     // Проверяем, что ключ 'is_bot' имеет значение true\r",
+													"    pm.expect(jsonData.result.is_bot).to.equal(true);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Ключ 'first_name' не пустой\", function() {    // Проверяем, что ключ 'first_name' не пустой\r",
+													"    pm.expect(jsonData.result.first_name).to.not.be.empty;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.telegram.org/bot{{TOKEN}}/getMe",
+											"protocol": "https",
+											"host": [
+												"api",
+												"telegram",
+												"org"
+											],
+											"path": [
+												"bot{{TOKEN}}",
+												"getMe"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Запрос информации о боте (getMe)",
+							"name": "POST",
+							"item": [
+								{
+									"name": "Отправка через Params",
+									"item": [
+										{
+											"name": "Отправка сообщения (sendMessage)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"pm.test(\"В ключе 'text' содержится отправленное сообщение\", function () {     \r",
+															"    pm.expect(jsonData.result.text).to.eql(\"Привет, это тестовое сообщение от Postman!\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendMessage?chat_id={{chatId}}&text=Привет, это тестовое сообщение от Postman!",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendMessage"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}"
+														},
+														{
+															"key": "text",
+															"value": "Привет, это тестовое сообщение от Postman!"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Пересылка сообщения (forwardMessage)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"var expectedText = pm.collectionVariables.get(\"randomText\"); \r",
+															"\r",
+															"pm.test(\"Ключ 'result.text' равен переменной randomText\", function () {     \r",
+															"    pm.expect(jsonData.result.text).to.eql(expectedText);\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/forwardMessage?chat_id={{chatId}}&message_id={{randomMessageId}}&from_chat_id={{chatId}}",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"forwardMessage"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}"
+														},
+														{
+															"key": "message_id",
+															"value": "{{randomMessageId}}"
+														},
+														{
+															"key": "from_chat_id",
+															"value": "{{chatId}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Отправка фото (sendPhoto)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Ключ 'photo' не пустой\", function() {\r",
+															"    pm.expect(jsonData.result.photo).to.not.be.empty;\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"var timestamp = new Date().getTime();                       // Создание переменной timestamp\r",
+															"pm.collectionVariables.set(\"timestamp\", timestamp);\r",
+															"\r",
+															"// Определение случайной широты и высоты  для отправленного фото\r",
+															"// Сервис Lorem Picsum позволяет генерировать фото с размерами каждой из сторон от 1 до 5000 включительно\r",
+															"\r",
+															"var randomWidth = Math.floor(Math.random() * 5000) + 1;           // Math.random определяет множество чисел [0, 5000). То есть 5000 не входит в него\r",
+															"pm.collectionVariables.set(\"randomWidth\", randomWidth);           // Math.floor округляет полученное число вниз до ближайшего целого\r",
+															"var randomHeight = Math.floor(Math.random() * 5000) + 1;          // +1 позволит переменной принимать целые значения от 1 до 5000 включительно\r",
+															"pm.collectionVariables.set(\"randomHeight\", randomHeight);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendPhoto?chat_id={{chatId}}&photo=https://picsum.photos/{{randomWidth}}/{{randomHeight}}?timestamp={{timestamp}}",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendPhoto"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}"
+														},
+														{
+															"key": "photo",
+															"value": "https://picsum.photos/{{randomWidth}}/{{randomHeight}}?timestamp={{timestamp}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Отправка локации (sendLocation)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Значения latitude и longitude в теле ответа равны своим значениям в теле запроса\", function () {\r",
+															"    \r",
+															"    var jsonData = pm.response.json();\r",
+															"\r",
+															"    var responseLatitude = jsonData.result.location.latitude;               // Получаем значения latitude и longitude из тела ответа\r",
+															"    var responseLongitude = jsonData.result.location.longitude;\r",
+															"\r",
+															"    var randomLatitude = pm.collectionVariables.get(\"randomLatitude\");      // Получаем значения переменных {{randomLatitude}} и {{randomLongitude}}\r",
+															"    var randomLongitude = pm.collectionVariables.get(\"randomLongitude\");\r",
+															"\r",
+															"    pm.expect(responseLatitude).to.eql(parseFloat(randomLatitude));         // Сравниваем значения\r",
+															"    pm.expect(responseLongitude).to.eql(parseFloat(randomLongitude));\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"var decimalPlaces = 6;                                          // Определение количества цифр после запятой\r",
+															"var randomLatitude = parseFloat((Math.random() * (90 - (-90)) + (-90)).toFixed(decimalPlaces));      // Генерация случайной широты и долготы\r",
+															"var randomLongitude = parseFloat((Math.random() * (180 - (-180)) + (-180)).toFixed(decimalPlaces));\r",
+															"\r",
+															"pm.collectionVariables.set(\"randomLatitude\", randomLatitude);   // Сохранение значений в переменных коллекции\r",
+															"pm.collectionVariables.set(\"randomLongitude\", randomLongitude);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendLocation?chat_id={{chatId}}&latitude={{randomLatitude}}&longitude={{randomLongitude}}",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendLocation"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}"
+														},
+														{
+															"key": "latitude",
+															"value": "{{randomLatitude}}"
+														},
+														{
+															"key": "longitude",
+															"value": "{{randomLongitude}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Отправка через Body",
+									"item": [
+										{
+											"name": "Отправка опроса (sendPoll)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"pm.test('Ключ \"question\" совпадает с отправленным', function () {\r",
+															"    pm.expect(jsonData.result.poll.question).to.eql(\"Вопрос?\");         // Проверяем, что question совпадает с отправленным\r",
+															"});\r",
+															"\r",
+															"pm.test('Ключи \"options.text\" совпадают с отправленными', function () { \r",
+															"    \r",
+															"    pm.expect(jsonData.result.poll.options).to.be.an('array').that.is.not.empty;    // Проверяем, что options - это массив\r",
+															"\r",
+															"    var expectedOptions = [\"Ответ 1\", \"Ответ 2\", \"Ответ 3\"];            // Проверяем, что options.text совпадают с отправленными значениями\r",
+															"    \r",
+															"    jsonData.result.poll.options.forEach(function (option, index) {\r",
+															"        pm.expect(option.text).to.eql(expectedOptions[index]);\r",
+															"    });\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"chat_id\": {{chatId}},\r\n    \"question\": \"Вопрос?\",\r\n    \"options\": [\"Ответ 1\", \"Ответ 2\", \"Ответ 3\"]\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendPoll",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendPoll"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Отправка сообщения (sendMessage)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"pm.test(\"В ключе 'text' содержится отправленное сообщение\", function () {     \r",
+															"    pm.expect(jsonData.result.text).to.eql(\"Привет, это тестовое сообщение от Postman!\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"chat_id\": {{chatId}},\r\n    \"text\": \"Привет, это тестовое сообщение от Postman!\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendMessage",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendMessage"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}",
+															"disabled": true
+														},
+														{
+															"key": "text",
+															"value": "Привет, это тестовое сообщение от Postman!",
+															"disabled": true
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Отправка локации (sendLocation)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Значения latitude и longitude в теле ответа равны своим значениям в теле запроса\", function () {\r",
+															"    \r",
+															"    var jsonData = pm.response.json();\r",
+															"\r",
+															"    var responseLatitude = jsonData.result.location.latitude;               // Получаем значения latitude и longitude из тела ответа\r",
+															"    var responseLongitude = jsonData.result.location.longitude;\r",
+															"\r",
+															"    var randomLatitude = pm.collectionVariables.get(\"randomLatitude\");      // Получаем значения переменных {{randomLatitude}} и {{randomLongitude}}\r",
+															"    var randomLongitude = pm.collectionVariables.get(\"randomLongitude\");\r",
+															"\r",
+															"    pm.expect(responseLatitude).to.eql(parseFloat(randomLatitude));         // Сравниваем значения\r",
+															"    pm.expect(responseLongitude).to.eql(parseFloat(randomLongitude));\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"var decimalPlaces = 6;                                          // Определение количества цифр после запятой\r",
+															"var randomLatitude = parseFloat((Math.random() * (90 - (-90)) + (-90)).toFixed(decimalPlaces));      // Генерация случайной широты и долготы\r",
+															"var randomLongitude = parseFloat((Math.random() * (180 - (-180)) + (-180)).toFixed(decimalPlaces));\r",
+															"\r",
+															"pm.collectionVariables.set(\"randomLatitude\", randomLatitude);   // Сохранение значений в переменных коллекции\r",
+															"pm.collectionVariables.set(\"randomLongitude\", randomLongitude);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"chat_id\": {{chatId}},\r\n    \"latitude\": {{randomLatitude}},\r\n    \"longitude\": {{randomLongitude}}\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://api.telegram.org/bot{{TOKEN}}/sendLocation",
+													"protocol": "https",
+													"host": [
+														"api",
+														"telegram",
+														"org"
+													],
+													"path": [
+														"bot{{TOKEN}}",
+														"sendLocation"
+													],
+													"query": [
+														{
+															"key": "chat_id",
+															"value": "{{chatId}}",
+															"disabled": true
+														},
+														{
+															"key": "latitude",
+															"value": "{{randomLatitude}}",
+															"disabled": true
+														},
+														{
+															"key": "longitude",
+															"value": "{{randomLongitude}}",
+															"disabled": true
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							],
 							"event": [
 								{
-									"listen": "test",
+									"listen": "prerequest",
 									"script": {
+										"type": "text/javascript",
 										"exec": [
 											""
-										],
-										"type": "text/javascript"
+										]
 									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/getMe",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
-									],
-									"path": [
-										"bot{{TOKEN}}",
-										"getMe"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Отправка сообщения (sendMessage)",
-							"event": [
+								},
 								{
 									"listen": "test",
 									"script": {
+										"type": "text/javascript",
 										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disabledSystemHeaders": {}
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/sendMessage?chat_id={{chatId}}&text=Привет, это тестовое сообщение от Postman!",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
-									],
-									"path": [
-										"bot{{TOKEN}}",
-										"sendMessage"
-									],
-									"query": [
-										{
-											"key": "chat_id",
-											"value": "{{chatId}}"
-										},
-										{
-											"key": "text",
-											"value": "Привет, это тестовое сообщение от Postman!"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Пересылка сообщения (forwardMessage)",
-							"protocolProfileBehavior": {
-								"disabledSystemHeaders": {}
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/forwardMessage?chat_id={{chatId}}&message_id={{randomMessageId}}&from_chat_id={{chatId}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
-									],
-									"path": [
-										"bot{{TOKEN}}",
-										"forwardMessage"
-									],
-									"query": [
-										{
-											"key": "chat_id",
-											"value": "{{chatId}}"
-										},
-										{
-											"key": "message_id",
-											"value": "{{randomMessageId}}"
-										},
-										{
-											"key": "from_chat_id",
-											"value": "{{chatId}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Отправка фото (sendPhoto)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Ключ 'photo' не пустой\", function() {\r",
-											"    pm.expect(jsonData.result.photo).to.not.be.empty;\r",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.test(\"Ключ 'message_id' является целым числом\", function() {          // Проверяем, что 'message_id' это целое число",
+											"    pm.expect(Number.isInteger(jsonData.result.message_id)).to.be.true;",
+											"});",
+											"",
+											"pm.test(\"Ключ 'date' является целым числом\", function() {          // Проверяем, что 'date' это целое число",
+											"    pm.expect(Number.isInteger(jsonData.result.date)).to.be.true;",
+											"});",
+											"",
+											"var expectedChatId = pm.collectionVariables.get(\"chatId\"); ",
+											"",
+											"pm.test(\"Ключ 'chat.id' равен переменной chatId\", function () {     ",
+											"    pm.expect(jsonData.result.chat.id).to.eql(expectedChatId);",
 											"});"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"var timestamp = new Date().getTime();                   // Создание переменной timestamp для для использования в тестах\r",
-											"pm.collectionVariables.set(\"timestamp\", timestamp);"
-										],
-										"type": "text/javascript"
+										]
 									}
 								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/sendPhoto?chat_id={{chatId}}&photo=https://picsum.photos/800/600?timestamp={{timestamp}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
-									],
-									"path": [
-										"bot{{TOKEN}}",
-										"sendPhoto"
-									],
-									"query": [
-										{
-											"key": "chat_id",
-											"value": "{{chatId}}"
-										},
-										{
-											"key": "photo",
-											"value": "https://picsum.photos/800/600?timestamp={{timestamp}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Отправка локации (sendLocation)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Значения latitude и longitude в теле ответа равны своим значениям в теле запроса\", function () {\r",
-											"    \r",
-											"    var jsonData = pm.response.json();\r",
-											"\r",
-											"    var responseLatitude = jsonData.result.location.latitude;               // Получаем значения latitude и longitude из тела ответа\r",
-											"    var responseLongitude = jsonData.result.location.longitude;\r",
-											"\r",
-											"    var randomLatitude = pm.collectionVariables.get(\"randomLatitude\");      // Получаем значения переменных {{randomLatitude}} и {{randomLongitude}}\r",
-											"    var randomLongitude = pm.collectionVariables.get(\"randomLongitude\");\r",
-											"\r",
-											"    pm.expect(responseLatitude).to.eql(parseFloat(randomLatitude));         // Сравниваем значения\r",
-											"    pm.expect(responseLongitude).to.eql(parseFloat(randomLongitude));\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"var decimalPlaces = 6;                                          // Определение количества цифр после запятой\r",
-											"var randomLatitude = (Math.random() * (90 - (-90)) + (-90)).toFixed(decimalPlaces);      // Генерация случайной широты и долготы\r",
-											"var randomLongitude = (Math.random() * (180 - (-180)) + (-180)).toFixed(decimalPlaces);\r",
-											"\r",
-											"pm.collectionVariables.set(\"randomLatitude\", randomLatitude);   // Сохранение значений в переменных коллекции\r",
-											"pm.collectionVariables.set(\"randomLongitude\", randomLongitude);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "https://api.telegram.org/bot{{TOKEN}}/sendLocation?chat_id={{chatId}}&latitude={{randomLatitude}}&longitude={{randomLongitude}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"telegram",
-										"org"
-									],
-									"path": [
-										"bot{{TOKEN}}",
-										"sendLocation"
-									],
-									"query": [
-										{
-											"key": "chat_id",
-											"value": "{{chatId}}"
-										},
-										{
-											"key": "latitude",
-											"value": "{{randomLatitude}}"
-										},
-										{
-											"key": "longitude",
-											"value": "{{randomLongitude}}"
-										}
-									]
-								}
-							},
-							"response": []
+							]
 						}
 					],
 					"event": [
@@ -566,7 +868,7 @@
 											}
 										},
 										"url": {
-											"raw": "https://api.telegram.org/bot{{TOKEN}}/sendMessage?text=Привет, это тестовое сообщение от Postman!",
+											"raw": "https://api.telegram.org/bot{{TOKEN}}/sendMessage?chat_id={{chatId}}",
 											"protocol": "https",
 											"host": [
 												"api",
@@ -580,12 +882,12 @@
 											"query": [
 												{
 													"key": "chat_id",
-													"value": "{{chatId}}",
-													"disabled": true
+													"value": "{{chatId}}"
 												},
 												{
 													"key": "text",
-													"value": "Привет, это тестовое сообщение от Postman!"
+													"value": "Привет, это тестовое сообщение от Postman!",
+													"disabled": true
 												}
 											]
 										}
@@ -710,7 +1012,7 @@
 										"method": "POST",
 										"header": [],
 										"url": {
-											"raw": "https://api.telegram.org/bot{{TOKEN}}/sendLocation?latitude={{randomLatitude}}&longitude={{randomLongitude}}",
+											"raw": "https://api.telegram.org/bot{{TOKEN}}/sendLocation?chat_id={{chatId}}&latitude={{randomLatitude}}",
 											"protocol": "https",
 											"host": [
 												"api",
@@ -724,8 +1026,7 @@
 											"query": [
 												{
 													"key": "chat_id",
-													"value": "{{chatId}}",
-													"disabled": true
+													"value": "{{chatId}}"
 												},
 												{
 													"key": "latitude",
@@ -733,7 +1034,8 @@
 												},
 												{
 													"key": "longitude",
-													"value": "{{randomLongitude}}"
+													"value": "{{randomLongitude}}",
+													"disabled": true
 												}
 											]
 										}
@@ -1161,6 +1463,18 @@
 			"key": "webhookUrl",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "randomText",
+			"value": ""
+		},
+		{
+			"key": "randomWidth",
+			"value": ""
+		},
+		{
+			"key": "randomHeight",
+			"value": ""
 		}
 	]
 }
