@@ -1,4 +1,5 @@
-# Telegram Bot API Tests
+# Telegram Bot API Tests 
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/20975438-11e6d065-18c7-4355-938b-63953d9b1a89?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D20975438-11e6d065-18c7-4355-938b-63953d9b1a89%26entityType%3Dcollection%26workspaceId%3D80a53969-7106-44ef-a521-37d44788bd5f)
 
 Эта коллекция является моим учебным проектом, демонстрирующим мои навыки работы с Postman. В ней используются некоторые методы из [Telegram Bot API](https://core.telegram.org/bots/api).
 
