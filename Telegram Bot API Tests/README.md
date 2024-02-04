@@ -19,4 +19,4 @@
 
 ## Обнаруженные баги:
 
-При использовании метода sendLocation, координаты, отправленные в запросе, немного расходятся с координатами, полученными в теле ответа. Подробнее описано в [баг-репорте](https://docs.google.com/spreadsheets/d/1KEzxGsc3fhG4zDJiSqyI53LGiLsi3xBBbH2GVYNggkw/edit?usp=sharing). Баг не является серьезным, так как при сравнении точек координат на карте наблюдаются расхождения максимум в пару метров.
+При использовании метода sendLocation, координаты, отправленные в запросе, немного расходятся с координатами, полученными в теле ответа. Подробнее описано в [баг-репорте]([https://docs.google.com/spreadsheets/d/1KEzxGsc3fhG4zDJiSqyI53LGiLsi3xBBbH2GVYNggkw/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1S8UoDU--_amDJ-d4ftZk_LLcI3FtDMKvZuW2vv-m6NA/edit?usp=sharing)). Баг не является серьезным, так как при сравнении точек координат на карте наблюдаются расхождения максимум в пару метров.
