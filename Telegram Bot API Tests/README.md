@@ -7,7 +7,7 @@
 
 1. Создать бота в [BotFather](https://t.me/BotFather) с помощью команды /newbot
 1. Скопировать полученный токен бота в переменную коллекции TOKEN в поле Current value
-1. В переменной webhookUrl указать URL вебхука или заглушку [example.com](example.com)
+1. В переменной webhookUrl указать URL вебхука или заглушку [example.com](https://example.com)
 1. Запустить бота, отправив ему команду /start
 
 ## Описание:
