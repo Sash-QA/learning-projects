@@ -4,4 +4,4 @@
 
 К сожалению, на данный момент бот недоступен для просмотра, но это задание может продемонстрировать мои навыки составления чек-листов для тестирования.
 
-Также это задание можно посмотреть на моем [Google Диск](https://drive.google.com/drive/folders/1788hGiqPG1ratpKdXZ0Id6ZuybvlIdqm?usp=sharing)
+Также это задание можно посмотреть на моем [Google Drive](https://drive.google.com/drive/folders/1788hGiqPG1ratpKdXZ0Id6ZuybvlIdqm?usp=sharing)
